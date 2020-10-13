@@ -11,6 +11,7 @@ public class Cadet {
     private double y;
     private double maxX;
     private double maxY;
+    private boolean newMap;
 
     public Cadet() {
         picture = new Picture(10, 10, "resources/mapanovo.png");
@@ -63,5 +64,24 @@ public class Cadet {
         return maxY;
     }
 
+    public void load(){
+        picture.load("resources/mapanovo.png");
+    }
+    public void load2nd(){
+        picture.load("resources/mediumplat.png");
+    }
+    public void load3rd(){
+        picture.load("resources/olat.png");
+    }
+    public void load4th(){
+        picture.load("resources/dungeon.png");
+    }
 
+    public void setNewMap(boolean map){
+        newMap = map;
+    }
+
+    public boolean isNewMap() {
+        return newMap;
+    }
 }

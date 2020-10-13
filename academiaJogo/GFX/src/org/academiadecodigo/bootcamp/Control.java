@@ -9,9 +9,10 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Control implements KeyboardHandler {
 
     private Keyboard keyboard;
-    private MC mc;
+    private Char mc;
     private Cadet cadet;
-
+    private Textbox textbox;
+    private MC2 GPS = new MC2();
 
 
     public void init(){
@@ -42,21 +43,73 @@ public class Control implements KeyboardHandler {
 
         keyboard.addEventListener(left);
 
+        KeyboardEvent space = new KeyboardEvent();
+        space.setKey(KeyboardEvent.KEY_SPACE);
+        space.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
+        keyboard.addEventListener(space);
+
+        KeyboardEvent k = new KeyboardEvent();
+        k.setKey(KeyboardEvent.KEY_K);
+        k.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
+        keyboard.addEventListener(k);
+
+        KeyboardEvent b = new KeyboardEvent();
+        b.setKey(KeyboardEvent.KEY_B);
+        b.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
+        keyboard.addEventListener(b);
     }
-    public void setMc(MC mc){
+    public void setMc(Char mc){
                 this.mc = mc;
     }
+
+    public void setCadet(Cadet cadet) {
+        this.cadet = cadet;
+    }
+
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
         if (keyboardEvent.getKey() == 38) {
             mc.moveUp();
+            GPS.moveUp();
         } else if (keyboardEvent.getKey() == 39) {
             mc.moveRight();
-
+            GPS.moveRight();
         } else if(keyboardEvent.getKey() == 40){
             mc.moveDown();
+            GPS.moveDown();
         } else if(keyboardEvent.getKey() == 37){
             mc.moveLeft();
+            GPS.moveLeft();
+        }
+        else if(keyboardEvent.getKey() == 32) {
+            mc.getPosition();
+        }
+        else if(keyboardEvent.getKey() == 75){
+            if(mc.getLeft() == 71 && mc.getRight() == 123 && mc.getTop() == 204 && mc.getBottom() == 246){
+                cadet.load2nd();
+                cadet.setNewMap(true);
+                mc.deleteImage();
+                setMc(GPS);
+            }
+            if(mc.getLeft() == 296 && mc.getRight() == 348 && mc.getTop() == 73 && mc.getBottom() == 115){
+                cadet.load3rd();
+                cadet.setNewMap(true);
+                mc.deleteImage();
+            }
+            if(mc.getLeft() == 371 && mc.getRight() == 423 && mc.getTop() == 316 && mc.getBottom() == 358){
+                cadet.load4th();
+                cadet.setNewMap(true);
+                mc.deleteImage();
+            }
+        }
+        else if (keyboardEvent.getKey() == 66 && cadet.isNewMap() ) {
+            cadet.load();
+            cadet.setNewMap(false);
+            setMc(mc);
+            mc.reDraw();
         }
     }
 
@@ -64,5 +117,8 @@ public class Control implements KeyboardHandler {
     public void keyReleased(KeyboardEvent keyboardEvent) {
 
     }
+
+
+
 }
 

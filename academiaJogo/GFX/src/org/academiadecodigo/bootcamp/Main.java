@@ -13,12 +13,17 @@ public class Main {
         rect.fill();*/
 
 
+
         Cadet luis = new Cadet();
         MC lulu = new MC();
-
 
         Control control = new Control();
         control.init();
         control.setMc(lulu);
+        control.setCadet(luis);
+
+
+
+
     }
 }
